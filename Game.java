@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Random;
 
-public class Game extends Frame {
+public class Game extends Frame{
 	
 	// declarations and definitions of instance variables
 	
@@ -72,9 +72,10 @@ public class Game extends Frame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(hand.getSelectedCheckbox().getName());
-				
+			/// generates a random number from 0-4 to decide hand of computer	
 				Random rnd = new Random();
 				String compChoice = "";
+			
 				int computerSelection = rnd.nextInt(5);
 				switch(computerSelection){
 					case 0: {
@@ -100,6 +101,7 @@ public class Game extends Frame {
 				txtCS.setText(Integer.toString(cScore));
 				txtPS.setText(Integer.toString(pScore));
 				
+				// condition to end game is 5 points from player or computer
 				
 				if(pScore ==5 || cScore == 5){
 					
@@ -172,6 +174,9 @@ public class Game extends Frame {
 	}
 	
 	// this method determines who wins, and then updates scores.
+	
+	
+	// note : code can be shorter - this is a waste of memory. will update soon
 	
 	private String compute(String playerChoice, String compChoice) {
 		String result = "";
