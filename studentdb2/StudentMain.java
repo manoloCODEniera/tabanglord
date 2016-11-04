@@ -193,50 +193,45 @@ public class StudentMain{
 	
 	//method that should be used to open an existing file, or create it if it doesn't exist
 	public void open(){
+		FileInputStream file = null;
+		ObjectInputStream obj = null;
 		
-		 File fin = new File("db.txt");
-         if(fin.length() == 0) {
-             // file is emtpy!!
-             System.err.println("FILE IS EMPTY");
-             System.exit(-1);
-         }
-         try {
-			fis = new FileInputStream(fin);
+		try {
+			file = new FileInputStream("db.txt");
+			
+			obj = new ObjectInputStream(file);
+			
+			Object obj1 = obj.readObject();
+			if(obj1 instanceof ArrayList<?>){
+				students = (ArrayList<Student>) obj1;
+			}
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-         
-         try {
-			ois = new ObjectInputStream(fis);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
 			try {
-				 students = (ArrayList<Student>) ois.readObject();
-				
-			} catch (ClassNotFoundException e1) {
+				obj.close();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.printStackTrace();
 			}
-		} finally {
-
-            // make sure to close the files!
-            try {
-                //fos.close();
-            	ois.close();
-                fis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+			
+			
+		}
+		
+		
+		
+	}
 
 
-    }
+    
 
          
 		
